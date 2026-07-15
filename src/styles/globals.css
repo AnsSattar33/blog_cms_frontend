@@ -1,0 +1,19 @@
+@import "../app/globals.css";
+@plugin "@tailwindcss/typography";
+
+/* Additional global styles for blog CMS */
+.prose-blog {
+  @apply prose prose-neutral dark:prose-invert max-w-none;
+}
+
+.prose-blog img {
+  @apply rounded-xl;
+}
+
+.prose-blog h2 {
+  @apply mt-8 mb-4;
+}
+
+.prose-blog p {
+  @apply leading-relaxed;
+}

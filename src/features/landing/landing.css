@@ -1,0 +1,149 @@
+.landing-page {
+  --lp-bg: #0e1117;
+  --lp-bg-elevated: #141a24;
+  --lp-surface: #1a2130;
+  --lp-surface-hover: #222b3d;
+  --lp-border: rgba(255, 255, 255, 0.08);
+  --lp-border-strong: rgba(255, 255, 255, 0.14);
+  --lp-text: #eef0f6;
+  --lp-text-muted: #8b93a8;
+  --lp-text-subtle: #5c6478;
+  --lp-accent: #6b7fd7;
+  --lp-accent-hover: #8496e8;
+  --lp-accent-soft: rgba(107, 127, 215, 0.12);
+  --lp-accent-glow: rgba(107, 127, 215, 0.25);
+  --lp-hero-glow: rgba(107, 127, 215, 0.18);
+
+  background-color: var(--lp-bg);
+  color: var(--lp-text);
+}
+
+.landing-page .landing-hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, var(--lp-hero-glow), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 60%, rgba(107, 127, 215, 0.08), transparent 60%),
+    var(--lp-bg);
+}
+
+.landing-page .landing-cta-glow {
+  background:
+    linear-gradient(135deg, rgba(107, 127, 215, 0.08) 0%, transparent 50%),
+    var(--lp-surface);
+  border: 1px solid var(--lp-border-strong);
+  box-shadow: 0 0 80px -20px var(--lp-accent-glow);
+}
+
+.landing-page .landing-card {
+  background: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.landing-page .landing-card:hover {
+  border-color: var(--lp-border-strong);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+.landing-page .landing-badge {
+  background: var(--lp-accent-soft);
+  color: var(--lp-accent-hover);
+  border: 1px solid rgba(107, 127, 215, 0.2);
+}
+
+.landing-page .landing-btn-primary {
+  background: var(--lp-accent);
+  color: #fff;
+}
+
+.landing-page .landing-btn-primary:hover {
+  background: var(--lp-accent-hover);
+}
+
+.landing-page .landing-btn-ghost {
+  background: transparent;
+  color: var(--lp-text-muted);
+  border: 1px solid var(--lp-border);
+}
+
+.landing-page .landing-btn-ghost:hover {
+  background: var(--lp-accent-soft);
+  color: var(--lp-text);
+  border-color: var(--lp-border-strong);
+}
+
+.landing-page .landing-input {
+  background: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  color: var(--lp-text);
+}
+
+.landing-page .landing-input::placeholder {
+  color: var(--lp-text-subtle);
+}
+
+.landing-page .landing-input:focus {
+  border-color: var(--lp-border-strong);
+  box-shadow: 0 0 0 3px var(--lp-accent-soft);
+}
+
+.landing-page .landing-empty-state {
+  border: 1px dashed var(--lp-border);
+  background: var(--lp-surface);
+  color: var(--lp-text-muted);
+}
+
+.landing-page .landing-empty-state h3 {
+  color: var(--lp-text);
+}
+
+.landing-page .landing-empty-state svg {
+  color: var(--lp-text-subtle);
+}
+
+.landing-page .landing-prose {
+  color: var(--lp-text-muted);
+}
+
+.landing-page .landing-prose h1,
+.landing-page .landing-prose h2,
+.landing-page .landing-prose h3,
+.landing-page .landing-prose h4,
+.landing-page .landing-prose strong {
+  color: var(--lp-text);
+}
+
+.landing-page .landing-prose a {
+  color: var(--lp-accent-hover);
+}
+
+.landing-page .landing-prose a:hover {
+  color: var(--lp-accent);
+}
+
+.landing-page .landing-prose blockquote {
+  border-left-color: var(--lp-accent);
+  color: var(--lp-text-muted);
+}
+
+.landing-page .landing-prose code {
+  background: var(--lp-surface);
+  color: var(--lp-accent-hover);
+}
+
+.landing-page .landing-prose pre {
+  background: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+}
+
+.landing-page .landing-skeleton {
+  background: var(--lp-surface);
+}
+
+.landing-page [data-slot="skeleton"] {
+  background: var(--lp-surface);
+}
+
+.landing-page .bg-card {
+  background: var(--lp-surface);
+  border-color: var(--lp-border);
+}
