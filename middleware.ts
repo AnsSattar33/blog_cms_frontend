@@ -4,8 +4,21 @@ import { hasSessionCookie } from "@/features/auth/session";
 
 const protectedPaths = ["/dashboard"];
 
+function usesSameOriginApi(): boolean {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "/api";
+  return !apiUrl.startsWith("http");
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Cross-origin API (e.g. frontend.vercel.app → backend.vercel.app):
+  // the session cookie is stored on the API host, not this host.
+  // DashboardAuthGuard validates the session client-side via /api/auth/me.
+  if (!usesSameOriginApi()) {
+    return NextResponse.next();
+  }
+
   const isProtected = protectedPaths.some(
     (path) => pathname === path || pathname.startsWith(`${path}/`)
   );

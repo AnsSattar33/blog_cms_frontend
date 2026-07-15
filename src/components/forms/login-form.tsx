@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
@@ -21,7 +21,6 @@ import { authService } from "@/services/auth.service";
 import { parseApiError } from "@/lib/api-error";
 
 export function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const redirectParam = searchParams.get("redirect");
@@ -45,8 +44,7 @@ export function LoginForm() {
       await authService.login(values);
       await queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
       toast.success("Signed in successfully");
-      router.push(redirect);
-      router.refresh();
+      window.location.assign(redirect);
     } catch (error) {
       toast.error(parseApiError(error).message);
     }
