@@ -5,6 +5,8 @@ import { hasSessionCookie } from "@/features/auth/session";
 const protectedPaths = ["/dashboard"];
 
 function usesSameOriginApi(): boolean {
+  if (process.env.BACKEND_URL) return true;
+
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "/api";
   return !apiUrl.startsWith("http");
 }

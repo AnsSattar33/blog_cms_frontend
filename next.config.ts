@@ -3,15 +3,10 @@ import type { NextConfig } from "next";
 const backendUrl = process.env.BACKEND_URL?.replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    if (!backendUrl) return [];
-
-    return [
-      {
-        source: "/api/:path*",
-        destination: `${backendUrl}/api/:path*`,
-      },
-    ];
+  env: {
+    // When BACKEND_URL is set, the browser must call same-origin /api (proxied route handler).
+    // This overrides a misconfigured absolute NEXT_PUBLIC_API_URL on Vercel.
+    ...(backendUrl ? { NEXT_PUBLIC_API_URL: "/api" } : {}),
   },
   images: {
     remotePatterns: [
