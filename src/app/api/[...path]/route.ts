@@ -17,6 +17,10 @@ type RouteContext = {
   params: Promise<{ path: string[] }>;
 };
 
+/**
+ * Same-origin API proxy: browser → /api/* → Express backend.
+ * Cookies become first-party on the frontend host (avoids third-party cookie blocks).
+ */
 async function proxyRequest(request: NextRequest, context: RouteContext) {
   if (!BACKEND_URL) {
     return NextResponse.json(
@@ -37,6 +41,7 @@ async function proxyRequest(request: NextRequest, context: RouteContext) {
   });
 
   const hasBody = !["GET", "HEAD"].includes(request.method);
+  // Buffer the body so multipart uploads (e.g. cover images) are preserved intact.
   const body = hasBody ? await request.arrayBuffer() : undefined;
 
   const backendResponse = await fetch(targetUrl, {
@@ -49,9 +54,21 @@ async function proxyRequest(request: NextRequest, context: RouteContext) {
 
   const responseHeaders = new Headers();
   backendResponse.headers.forEach((value, key) => {
-    if (HOP_BY_HOP_HEADERS.has(key.toLowerCase())) return;
+    const lower = key.toLowerCase();
+    if (HOP_BY_HOP_HEADERS.has(lower)) return;
+    // Set-Cookie must be copied via getSetCookie() — forEach/get can corrupt values.
+    if (lower === "set-cookie") return;
     responseHeaders.append(key, value);
   });
+
+  const setCookies =
+    typeof backendResponse.headers.getSetCookie === "function"
+      ? backendResponse.headers.getSetCookie()
+      : [];
+
+  for (const cookie of setCookies) {
+    responseHeaders.append("set-cookie", cookie);
+  }
 
   return new NextResponse(backendResponse.body, {
     status: backendResponse.status,

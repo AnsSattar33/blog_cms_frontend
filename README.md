@@ -34,9 +34,12 @@ See [../docs/folder-structure.md](../docs/folder-structure.md) for full document
 Copy `.env.example` to `.env.local`:
 
 ```
-NEXT_PUBLIC_API_URL=http://localhost:3001/api
+NEXT_PUBLIC_API_URL=/api
+BACKEND_URL=http://localhost:5000
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
+
+The browser calls same-origin `/api`; the Next.js route handler proxies to `BACKEND_URL`. On Vercel, set `BACKEND_URL` to your Express deployment (no `/api` suffix) and `NEXT_PUBLIC_API_URL=/api`.
 
 ## Tech Stack
 

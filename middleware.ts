@@ -14,9 +14,8 @@ function usesSameOriginApi(): boolean {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Cross-origin API (e.g. frontend.vercel.app → backend.vercel.app):
-  // the session cookie is stored on the API host, not this host.
-  // DashboardAuthGuard validates the session client-side via /api/auth/me.
+  // Legacy direct API mode: session cookie lives on the backend host, not here.
+  // Prefer BACKEND_URL + /api proxy so cookies are first-party on this host.
   if (!usesSameOriginApi()) {
     return NextResponse.next();
   }

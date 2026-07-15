@@ -4,8 +4,8 @@ const backendUrl = process.env.BACKEND_URL?.replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
   env: {
-    // When BACKEND_URL is set, the browser must call same-origin /api (proxied route handler).
-    // This overrides a misconfigured absolute NEXT_PUBLIC_API_URL on Vercel.
+    // Force same-origin /api in the browser whenever the proxy backend is configured.
+    // Prevents accidental third-party cookie calls to an absolute NEXT_PUBLIC_API_URL.
     ...(backendUrl ? { NEXT_PUBLIC_API_URL: "/api" } : {}),
   },
   images: {
