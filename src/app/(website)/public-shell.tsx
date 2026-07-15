@@ -1,5 +1,6 @@
 import { PublicNavbar } from "@/components/layout/public-nav/public-navbar";
 import { PublicFooter } from "@/components/layout/public-nav/public-footer";
+import { LandingPopupAd } from "@/components/ads/landing-popup-ad";
 
 interface PublicShellProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export function PublicShell({ children, variant = "default" }: PublicShellProps)
 
   return (
     <div className={wrapperClass}>
+      <LandingPopupAd />
       <PublicNavbar variant={variant} />
       <main className="flex-1">{children}</main>
       <PublicFooter variant={variant} />
