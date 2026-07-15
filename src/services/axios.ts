@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
 import { ApiClientError, getErrorMessage, parseApiError } from "@/lib/api-error";
+import { getApiBaseUrl } from "@/lib/api-base-url";
 import type { BackendPaginationMeta, BackendSuccessResponse } from "@/types/api";
 import type { Pagination } from "@/types";
 
@@ -36,7 +37,7 @@ function unwrapResponse<T>(response: AxiosResponse): AxiosResponse {
 }
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: getApiBaseUrl(),
   headers: {
     "Content-Type": "application/json",
   },
