@@ -17,3 +17,11 @@
 .prose-blog p {
   @apply leading-relaxed;
 }
+
+.prose-blog a {
+  @apply text-primary underline underline-offset-2;
+}
+
+.prose-blog a:hover {
+  @apply opacity-80;
+}
