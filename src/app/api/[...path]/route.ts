@@ -36,7 +36,14 @@ async function proxyRequest(request: NextRequest, context: RouteContext) {
   const headers = new Headers();
   request.headers.forEach((value, key) => {
     const lower = key.toLowerCase();
-    if (lower === "host" || HOP_BY_HOP_HEADERS.has(lower)) return;
+    // Node fetch decompresses responses; never ask the backend to compress.
+    if (
+      lower === "host" ||
+      lower === "accept-encoding" ||
+      HOP_BY_HOP_HEADERS.has(lower)
+    ) {
+      return;
+    }
     headers.set(key, value);
   });
 
@@ -58,6 +65,9 @@ async function proxyRequest(request: NextRequest, context: RouteContext) {
     if (HOP_BY_HOP_HEADERS.has(lower)) return;
     // Set-Cookie must be copied via getSetCookie() — forEach/get can corrupt values.
     if (lower === "set-cookie") return;
+    // fetch() already decoded the body; forwarding these makes the browser
+    // try to decompress plain JSON → empty Preview/Response in DevTools.
+    if (lower === "content-encoding" || lower === "content-length") return;
     responseHeaders.append(key, value);
   });
 
