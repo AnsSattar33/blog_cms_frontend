@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     template: "%s | Blog CMS",
   },
   description: "A modern blog content management system",
+  other: {
+    monetag: "befe852014d38235d88f971377a68740",
+  },
 };
 
 export default function RootLayout({
