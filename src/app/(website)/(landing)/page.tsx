@@ -8,10 +8,6 @@ import { LandingHero } from "@/features/landing/landing-hero";
 import { LandingCta } from "@/features/landing/landing-cta";
 import { LandingBlogGrid } from "@/features/landing/landing-blog-grid";
 import { LandingSectionHeader } from "@/features/landing/landing-section-header";
-import {
-  LandingLeaderboardAd,
-  LandingMediumRectangleAd,
-} from "@/components/ads/landing-ads";
 
 export default async function LandingPage() {
   let featured: Awaited<ReturnType<typeof blogService.getFeatured>>["data"] = [];
@@ -32,8 +28,6 @@ export default async function LandingPage() {
   return (
     <>
       <LandingHero />
-
-      <LandingLeaderboardAd />
 
       <section className="py-16 md:py-24">
         <Container>
@@ -84,12 +78,7 @@ export default async function LandingPage() {
               className={LANDING_EMPTY_CLASS}
             />
           ) : latest.length ? (
-            <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px] xl:items-start">
-              <LandingBlogGrid blogs={latest} animated />
-              <aside className="mx-auto w-full max-w-[300px] shrink-0 xl:mx-0 xl:sticky xl:top-28">
-                <LandingMediumRectangleAd />
-              </aside>
-            </div>
+            <LandingBlogGrid blogs={latest} animated />
           ) : (
             <EmptyState
               title="No blogs published yet"
