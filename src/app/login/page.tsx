@@ -1,6 +1,16 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { LoginForm } from "@/components/forms/login-form";
 import { Container } from "@/components/layout/container";
+
+export const metadata: Metadata = {
+  title: "Administrator login",
+  description: "Sign in to the Blog CMS administrator dashboard.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function LoginPage() {
   return (

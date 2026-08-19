@@ -1,4 +1,4 @@
-export const APP_NAME = "Blog CMS";
+export { SITE_NAME as APP_NAME } from "@/lib/site";
 
 export const BLOG_CATEGORIES = [
   "Technology",

@@ -18,8 +18,13 @@ import {
   LandingSortSelect,
   LandingTagFilter,
 } from "@/features/landing/landing-controls";
+import type { Blog, PaginatedResponse } from "@/types";
 
-export function BlogsPageContent() {
+interface BlogsPageContentProps {
+  initialData?: PaginatedResponse<Blog>;
+}
+
+export function BlogsPageContent({ initialData }: BlogsPageContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -34,7 +39,7 @@ export function BlogsPageContent() {
     [search, category, tag, sort, page]
   );
 
-  const { data, isLoading, isError } = usePublishedBlogs(params);
+  const { data, isLoading, isError } = usePublishedBlogs(params, { initialData });
 
   const updateParams = useCallback(
     (updates: Record<string, string>) => {

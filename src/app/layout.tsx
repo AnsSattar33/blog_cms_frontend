@@ -4,6 +4,13 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  DEFAULT_OG_PATH,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -18,11 +25,31 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Blog CMS",
-    template: "%s | Blog CMS",
+    default: `${SITE_NAME} — Articles on Technology, Design, and Business`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "A modern blog content management system",
+  description: SITE_DESCRIPTION,
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Articles on Technology, Design, and Business`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    images: [{ url: DEFAULT_OG_PATH }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Articles on Technology, Design, and Business`,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_PATH],
+  },
   verification: {
     google: "iwga6og7ZBusx-R1A29T1MPqBwLLKP5nE0ciKMg6AuI",
   },
@@ -43,6 +70,15 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} dark h-full`}
     >
       <body className="min-h-full flex flex-col font-sans antialiased bg-canvas text-foreground">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              { "@type": "WebSite", name: SITE_NAME, url: SITE_URL },
+              { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+            ],
+          }}
+        />
         <Script
           src="https://5gvci.com/act/files/tag.min.js?z=11605850"
           strategy="afterInteractive"

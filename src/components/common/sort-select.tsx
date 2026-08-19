@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { sortValueToApiParam } from "@/lib/blog-sort";
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest", sort: "-createdAt" },
@@ -42,6 +43,4 @@ export function SortSelect({ value, onChange }: SortSelectProps) {
   );
 }
 
-export function sortValueToApiParam(value: string): string {
-  return SORT_OPTIONS.find((o) => o.value === value)?.sort ?? "-createdAt";
-}
+export { sortValueToApiParam };

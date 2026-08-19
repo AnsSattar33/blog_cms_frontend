@@ -10,6 +10,7 @@ export const PUBLIC_FOOTER_LINKS = [
   { href: "/blogs", label: "Blogs" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/privacy", label: "Privacy" },
 ] as const;
 
 export const LOGIN_PATH = "/login" as const;

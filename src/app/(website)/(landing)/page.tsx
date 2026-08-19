@@ -3,11 +3,24 @@ import { ArrowRight } from "lucide-react";
 import { blogService } from "@/services/blog.service";
 import { Container } from "@/components/layout/container";
 import { EmptyState } from "@/components/common/empty-state";
+import { JsonLd } from "@/components/seo/json-ld";
 import { LANDING_EMPTY_CLASS } from "@/features/landing/landing-classes";
 import { LandingHero } from "@/features/landing/landing-hero";
 import { LandingCta } from "@/features/landing/landing-cta";
 import { LandingBlogGrid } from "@/features/landing/landing-blog-grid";
 import { LandingSectionHeader } from "@/features/landing/landing-section-header";
+import { SITE_NAME, buildPageMetadata, webPageJsonLd } from "@/lib/site";
+
+const HOME_TITLE = `${SITE_NAME} — Articles on Technology, Design, and Business`;
+const HOME_DESCRIPTION =
+  "Discover featured and latest articles on technology, design, and business. Browse stories written for curious readers, then explore the full archive.";
+
+export const metadata = buildPageMetadata({
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  path: "/",
+  absoluteTitle: true,
+});
 
 export default async function LandingPage() {
   let featured: Awaited<ReturnType<typeof blogService.getFeatured>>["data"] = [];
@@ -27,6 +40,13 @@ export default async function LandingPage() {
 
   return (
     <>
+      <JsonLd
+        data={webPageJsonLd({
+          name: HOME_TITLE,
+          description: HOME_DESCRIPTION,
+          path: "/",
+        })}
+      />
       <LandingHero />
 
       <section className="py-16 md:py-24">

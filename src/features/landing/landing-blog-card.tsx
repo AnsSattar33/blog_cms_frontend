@@ -28,7 +28,7 @@ export function LandingBlogCard({ blog, animated = false }: LandingBlogCardProps
   return (
     <Wrapper {...wrapperProps}>
       <Link href={`/blogs/${blog.slug}`} className="group block h-full">
-        <article className="landing-card flex h-full flex-col overflow-hidden rounded-2xl">
+        <div className="landing-card flex h-full flex-col overflow-hidden rounded-2xl">
           <div className="relative aspect-[16/10] overflow-hidden">
             <Image
               src={blog.thumbnail}
@@ -64,7 +64,7 @@ export function LandingBlogCard({ blog, animated = false }: LandingBlogCardProps
               </span>
             </div>
           </div>
-        </article>
+        </div>
       </Link>
     </Wrapper>
   );

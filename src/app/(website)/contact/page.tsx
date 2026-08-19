@@ -1,11 +1,31 @@
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { JsonLd } from "@/components/seo/json-ld";
 import { PublicPageHero } from "@/features/landing/public-page-hero";
+import { SITE_NAME, buildPageMetadata, webPageJsonLd } from "@/lib/site";
+
+const CONTACT_TITLE = `Contact ${SITE_NAME}`;
+const CONTACT_DESCRIPTION =
+  "Questions, topic ideas, or feedback about Blog CMS articles? This page explains how to reach the editorial team.";
+
+export const metadata = buildPageMetadata({
+  title: CONTACT_TITLE,
+  description: CONTACT_DESCRIPTION,
+  path: "/contact",
+  absoluteTitle: true,
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={webPageJsonLd({
+          name: CONTACT_TITLE,
+          description: CONTACT_DESCRIPTION,
+          path: "/contact",
+        })}
+      />
       <PublicPageHero
         badge="Reach out"
         title="Contact"
@@ -25,12 +45,13 @@ export default function ContactPage() {
               </h2>
               <p className="mt-3 leading-relaxed text-(--lp-text-muted)">
                 Whether you have a question about our content, want to suggest a
-                topic, or share feedback — drop us a message and we will get back
-                to you.
+                topic, or share feedback, we welcome it. There is no public
+                contact form on this page yet, so a dedicated email address and
+                form have not been published.
               </p>
               <p className="mt-4 text-sm text-(--lp-text-subtle)">
-                This page is a placeholder. Contact details and a form will be
-                added soon.
+                Until a form is added, use the articles archive to keep reading,
+                or check back here for contact details.
               </p>
             </div>
 
