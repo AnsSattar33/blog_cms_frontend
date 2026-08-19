@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     template: "%s | Blog CMS",
   },
   description: "A modern blog content management system",
+  verification: {
+    google: "iwga6og7ZBusx-R1A29T1MPqBwLLKP5nE0ciKMg6AuI",
+  },
   other: {
     monetag: "befe852014d38235d88f971377a68740",
   },
