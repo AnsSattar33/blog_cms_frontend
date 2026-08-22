@@ -117,14 +117,23 @@ export function webPageJsonLd({
 }
 
 export function articleJsonLd(blog: Blog) {
+  const pageUrl = absoluteUrl(`/blogs/${blog.slug}`);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: blog.title,
     description: blog.shortDescription,
-    url: absoluteUrl(`/blogs/${blog.slug}`),
+    url: pageUrl,
     dateModified: blog.updatedAt,
-    mainEntityOfPage: absoluteUrl(`/blogs/${blog.slug}`),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   };
 
   if (blog.thumbnail) {
@@ -142,7 +151,32 @@ export function articleJsonLd(blog: Blog) {
     data.datePublished = blog.publishedAt;
   }
 
+  if (blog.tags.length) {
+    data.about = blog.tags.map((tag) => ({
+      "@type": "Thing",
+      name: tag,
+    }));
+    data.keywords = blog.tags.join(", ");
+  }
+
   return data;
+}
+
+export function faqPageJsonLd(
+  faqs: Array<{ question: string; answer: string }>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 }
 
 export function breadcrumbJsonLd(
